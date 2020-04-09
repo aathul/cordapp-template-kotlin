@@ -9,6 +9,7 @@ import net.corda.core.identity.Party
 import net.corda.core.transactions.TransactionBuilder
 import net.corda.core.contracts.Command
 import net.corda.core.contracts.requireThat
+import net.corda.core.crypto.SecureHash
 import net.corda.core.transactions.SignedTransaction
 
 
@@ -18,7 +19,8 @@ import net.corda.core.transactions.SignedTransaction
 @InitiatingFlow
 @StartableByRPC
 class AssetFlow(val transferValue : Int,
-                val newOwner : Party) : FlowLogic<SignedTransaction>() {
+                val newOwner : Party,
+                val attachmentHash: SecureHash) : FlowLogic<SignedTransaction>() {
 
     /** The flow logic is encapsulated within the call() method. */
     @Suspendable
@@ -33,6 +35,7 @@ class AssetFlow(val transferValue : Int,
         val txBuilder = TransactionBuilder(notary = notary)
                 .addOutputState(outputState, AssetContract.ID)
                 .addCommand(command)
+                .addAttachment(attachmentHash)
 
         /**    Verifying the transaction**/
         txBuilder.verify(serviceHub)

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
+
+
 
 <head>
 
@@ -41,11 +44,7 @@
 
 
 
-<body id="page-top">
-
-
-
-<!-- Navigation -->
+<body onload="myFunction()" id="page-top">
 
 
 
@@ -57,33 +56,37 @@
 
     <a href="asset.html">Asset</a>
 
-    <div class="topright">
-
-        <img src="images/Logo2-1-300x50.png"/>
-
-    </div>
-
-
-
 </div>
 
 
 
-<header class="bg-primary text-white">
+<section id="about">
 
-    <div class="container text-center">
+    <div class="container">
 
-        <h1>CORDA</h1>
+        <div class="row">
 
-        <p class="lead">Asset Transfer Cordapp</p>
+            <div class="col-lg-6 mx-auto">
+
+                <h2>My Asset Transfers</h2>
+
+                <table class="table table-dark table-striped">
 
 
 
+                </table>
 
+            </div>
+
+        </div>
 
     </div>
 
-</header>
+</section>
+
+
+
+
 
 
 
@@ -121,8 +124,41 @@
 
 <script src="js/scrolling-nav.js"></script>
 
+<!--<script src ="js/script.js"></script>-->
+
+<script>
+
+   function myFunction(){
+
+
+
+   $.get("/mytransfers", function(data){
+
+   console.log(data);
+
+    $('table').empty();
+
+    $("table").append("<tr><td>OldOwner</td><td>NewOwner</td><td>Value</td><td>Action</td></tr>");
+
+   $.each(data, function(key, value) {
+
+    $("table").append("<tr><td>" +value.currentOwner + "</td><td>"+value.newOwner+ "</td><td>"+value.transferValue+ "</td><td><button type='button' onclick=window.open('/download?hashv="+value.attachmentHash+"') value='"+value.attachmentHash+"'>Download</button></td></tr>");
+
+        });
+
+   });
+
+
+
+   };
+
+</script>
+
 
 
 </body>
 
+
+
 </html>
+

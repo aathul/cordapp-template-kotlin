@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
+
+
+
+<head>
+
+
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+
+    <meta name="author" content="">
+
+
+
+    <title>CORDA CLIENT</title>
+
+
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+
+    <!-- Custom styles for this template -->
+
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+
+
+
+</head>
+
+
+
+<body onload="myFunction()" id="page-top">
+
+
+
+<!-- Navigation -->
+
+
+
+<div class="topnav">
+
+    <a href="index.html">Home</a>
+
+    <a href="transfer.html">Transfer</a>
+
+    <a href="asset.html">Asset</a>
+
+</div>
+
+
+
+
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-6 mx-auto">
+
+                <h2>Create IOU</h2>
+
+                <form action="/uploadFile" method="POST" enctype="multipart/form-data">
+
+                    <div class="form-group">
+
+                        <label for="txtasset">Property Transfer value</label>
+
+                        <input type="text" class="form-control" id="txtasset" name="txtasset">
+
+                        <div class="form-group">
+
+                            <label for="counterparty" class="control-label">New-owner:</label>
+
+                            <select class="form-control" id="counterparty" name="counterparty">
+
+                                <option value=""></option>
+
+                            </select>
+
+                        </div>
+
+                        <label for="file">Upload the attachment file</label>
+
+                        <input type="file" class="form-control" name="file" id="file">
+
+                        <input type="submit" class="form-control" value="SUBMIT">
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+<!-- Footer -->
+
+<footer class="py-5 bg-dark">
+
+    <div class="container">
+
+        <p class="m-0 text-center text-white">Copyright 2019 &copy; kba.ai</p>
+
+    </div>
+
+    <!-- /.container -->
+
+</footer>
+
+
+
+<!-- Bootstrap core JavaScript -->
+
+<script src="vendor/jquery/jquery.min.js"></script>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+
+<!-- Plugin JavaScript -->
+
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+
+
+<!-- Custom JavaScript for this theme -->
+
+<script src="js/scrolling-nav.js"></script>
+
+<!--<script src ="js/script.js"></script>-->
+
+<script>
+
+   function myFunction(){
+
+   console.log("ready")
+
+   $.get("/peers", function(data){
+
+       console.log(data);
+
+       $.each(data, function(key, value) {
+
+      //console.log(key, value);
+
+       $('#counterparty').append('<option value="' + value.replace(/[
+]+/g,'') + '">' + value + '</option>');
+
+       });
+
+       });
+
+
+
+ }
+
+ </script>
+
+</body>
+
+
+
+</html>
